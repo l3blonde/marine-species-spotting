@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { UploadScreen } from "@/components/upload-screen"
 import { AnalyzingScreen } from "@/components/analyzing-screen"
 import { ResultScreen } from "@/components/result-screen"
@@ -34,13 +34,24 @@ interface CategorizedSpecies {
 export default function MarineSpeciesRecognition() {
     const [uploadMode, setUploadMode] = useState<"single" | "bulk">("single")
     const [currentScreen, setCurrentScreen] = useState<"upload" | "analyzing" | "result">("upload")
-    const [selectedImage, setSelectedImage] = useState<string | null>(null)
+
+    const [selectedImage, setSelectedImage] = useState<string | null>(null) // base64 for API/result display
+    const [previewUrl, setPreviewUrl] = useState<string>("") // Blob URL for fast preview
+
     const [speciesData, setSpeciesData] = useState<SpeciesInfo | null>(null)
     const [confidence, setConfidence] = useState<number>(0)
 
     const [diveLogData, setDiveLogData] = useState<CategorizedSpecies | null>(null)
     const [analysisProgress, setAnalysisProgress] = useState(0)
     const [totalFiles, setTotalFiles] = useState(0)
+
+    useEffect(() => {
+        return () => {
+            if (previewUrl) {
+                URL.revokeObjectURL(previewUrl)
+            }
+        }
+    }, [previewUrl])
 
     const handleImageUpload = async (file: File) => {
         const imageDataUrl = await new Promise<string>((resolve) => {
@@ -138,8 +149,13 @@ export default function MarineSpeciesRecognition() {
     }
 
     const handleReset = () => {
+        if (previewUrl) {
+            URL.revokeObjectURL(previewUrl)
+        }
+
         setCurrentScreen("upload")
         setSelectedImage(null)
+        setPreviewUrl("")
         setSpeciesData(null)
         setConfidence(0)
         setDiveLogData(null)
@@ -155,6 +171,8 @@ export default function MarineSpeciesRecognition() {
                     onBulkUpload={handleBulkUpload}
                     uploadMode={uploadMode}
                     setUploadMode={setUploadMode}
+                    previewUrl={previewUrl}
+                    setPreviewUrl={setPreviewUrl}
                 />
             )}
             {currentScreen === "analyzing" && (

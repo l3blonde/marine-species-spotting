@@ -1,21 +1,41 @@
 "use client"
 
 import type React from "react"
-import { useState, useCallback } from "react"
-import { Upload, ImageIcon, ChevronDown, Images } from "lucide-react"
+import { useState, useCallback, useEffect } from "react"
+import { Upload, ChevronDown, Images } from "lucide-react"
 
 interface UploadScreenProps {
     onImageUpload: (file: File) => void
     onBulkUpload: (files: File[]) => void
     uploadMode: "single" | "bulk"
     setUploadMode: (mode: "single" | "bulk") => void
+    previewUrl: string
+    setPreviewUrl: (url: string) => void
 }
 
-export function UploadScreen({ onImageUpload, onBulkUpload, uploadMode, setUploadMode }: UploadScreenProps) {
+export function UploadScreen({
+                                 onImageUpload,
+                                 onBulkUpload,
+                                 uploadMode,
+                                 setUploadMode,
+                                 previewUrl,
+                                 setPreviewUrl,
+                             }: UploadScreenProps) {
     const [selectedFile, setSelectedFile] = useState<File | null>(null)
     const [selectedFiles, setSelectedFiles] = useState<File[]>([])
     const [isDragging, setIsDragging] = useState(false)
     const [showTips, setShowTips] = useState(false)
+
+    const [bulkPreviewUrls, setBulkPreviewUrls] = useState<string[]>([])
+
+    useEffect(() => {
+        return () => {
+            if (previewUrl) {
+                URL.revokeObjectURL(previewUrl)
+            }
+            bulkPreviewUrls.forEach((url) => URL.revokeObjectURL(url))
+        }
+    }, [previewUrl, bulkPreviewUrls])
 
     const handleDrop = useCallback(
         (e: React.DragEvent) => {
@@ -26,11 +46,15 @@ export function UploadScreen({ onImageUpload, onBulkUpload, uploadMode, setUploa
 
             if (uploadMode === "bulk") {
                 setSelectedFiles(files)
+                const urls = files.map((file) => URL.createObjectURL(file))
+                setBulkPreviewUrls(urls)
             } else if (files.length > 0) {
                 setSelectedFile(files[0])
+                const url = URL.createObjectURL(files[0])
+                setPreviewUrl(url)
             }
         },
-        [uploadMode],
+        [uploadMode, setPreviewUrl],
     )
 
     const handleDragOver = useCallback((e: React.DragEvent) => {
@@ -46,9 +70,14 @@ export function UploadScreen({ onImageUpload, onBulkUpload, uploadMode, setUploa
         const files = e.target.files
         if (files && files.length > 0) {
             if (uploadMode === "bulk") {
-                setSelectedFiles(Array.from(files))
+                const fileArray = Array.from(files)
+                setSelectedFiles(fileArray)
+                const urls = fileArray.map((file) => URL.createObjectURL(file))
+                setBulkPreviewUrls(urls)
             } else {
                 setSelectedFile(files[0])
+                const url = URL.createObjectURL(files[0])
+                setPreviewUrl(url)
             }
         }
     }
@@ -93,8 +122,11 @@ export function UploadScreen({ onImageUpload, onBulkUpload, uploadMode, setUploa
                     <button
                         onClick={() => {
                             setUploadMode("single")
+                            bulkPreviewUrls.forEach((url) => URL.revokeObjectURL(url))
+                            setBulkPreviewUrls([])
                             setSelectedFiles([])
                             setSelectedFile(null)
+                            setPreviewUrl("")
                         }}
                         style={{
                             padding: "12px 32px",
@@ -113,8 +145,13 @@ export function UploadScreen({ onImageUpload, onBulkUpload, uploadMode, setUploa
                     <button
                         onClick={() => {
                             setUploadMode("bulk")
+                            if (previewUrl) {
+                                URL.revokeObjectURL(previewUrl)
+                            }
                             setSelectedFile(null)
+                            setPreviewUrl("")
                             setSelectedFiles([])
+                            setBulkPreviewUrls([])
                         }}
                         style={{
                             padding: "12px 32px",
@@ -177,17 +214,80 @@ export function UploadScreen({ onImageUpload, onBulkUpload, uploadMode, setUploa
                                         alignItems: "center",
                                         gap: "16px",
                                         color: "#ffffff",
+                                        width: "100%",
                                     }}
                                 >
                                     <Images style={{ height: "40px", width: "40px" }} />
                                     <span style={{ fontSize: "1.25rem", fontWeight: "500" }}>
                     {selectedFiles.length} image{selectedFiles.length !== 1 ? "s" : ""} selected
                   </span>
+
+                                    <div
+                                        style={{
+                                            display: "grid",
+                                            gridTemplateColumns: "repeat(auto-fill, minmax(100px, 1fr))",
+                                            gap: "12px",
+                                            width: "100%",
+                                            maxWidth: "600px",
+                                            marginTop: "16px",
+                                        }}
+                                    >
+                                        {bulkPreviewUrls.slice(0, 6).map((url, index) => (
+                                            <img
+                                                key={index}
+                                                src={url || "/placeholder.svg"}
+                                                alt={`Preview ${index + 1}`}
+                                                style={{
+                                                    width: "100%",
+                                                    height: "100px",
+                                                    objectFit: "cover",
+                                                    borderRadius: "8px",
+                                                    border: "2px solid #4b5563",
+                                                }}
+                                            />
+                                        ))}
+                                        {selectedFiles.length > 6 && (
+                                            <div
+                                                style={{
+                                                    width: "100%",
+                                                    height: "100px",
+                                                    display: "flex",
+                                                    alignItems: "center",
+                                                    justifyContent: "center",
+                                                    borderRadius: "8px",
+                                                    border: "2px solid #4b5563",
+                                                    backgroundColor: "rgba(255, 255, 255, 0.1)",
+                                                    fontSize: "1.5rem",
+                                                    fontWeight: "600",
+                                                    color: "#ffffff",
+                                                }}
+                                            >
+                                                +{selectedFiles.length - 6}
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
-                            ) : uploadMode === "single" && selectedFile ? (
-                                <div style={{ display: "flex", alignItems: "center", gap: "16px", color: "#ffffff" }}>
-                                    <ImageIcon style={{ height: "40px", width: "40px" }} />
-                                    <span style={{ fontSize: "1.25rem", fontWeight: "500" }}>{selectedFile.name}</span>
+                            ) : uploadMode === "single" && selectedFile && previewUrl ? (
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        alignItems: "center",
+                                        gap: "16px",
+                                        color: "#ffffff",
+                                    }}
+                                >
+                                    <img
+                                        src={previewUrl || "/placeholder.svg"}
+                                        alt="Preview"
+                                        style={{
+                                            maxWidth: "300px",
+                                            maxHeight: "300px",
+                                            objectFit: "contain",
+                                            borderRadius: "12px",
+                                            border: "3px solid #4b5563",
+                                        }}
+                                    />
                                 </div>
                             ) : (
                                 <>
