@@ -37,103 +37,32 @@ export function ResultScreen({ image, speciesData, confidence, onReset }: Result
     }, [])
 
     return (
-        <div style={{ minHeight: "100vh", padding: "48px 24px" }}>
-            <div style={{ maxWidth: "1400px", margin: "0 auto" }}>
-                <h1
-                    style={{
-                        fontSize: "36px",
-                        fontWeight: "bold",
-                        color: "white",
-                        textAlign: "center",
-                        marginBottom: "48px",
-                        lineHeight: "1.3",
-                    }}
-                >
-                    Species Identified!
-                </h1>
+        <div className="min-h-screen py-12 px-6">
+            <div className="max-w-[1400px] mx-auto">
+                <h1 className="text-4xl font-bold text-white text-center mb-12 leading-tight">Species Identified!</h1>
 
-                <div
-                    style={{
-                        display: "grid",
-                        gridTemplateColumns: isDesktop ? "450px 1fr" : "1fr",
-                        gap: "48px",
-                        marginBottom: "48px",
-                    }}
-                >
-                    {/* Left Column: Image & Basic Info */}
+                <div className={`grid gap-12 mb-12 ${isDesktop ? "grid-cols-[450px_1fr]" : "grid-cols-1"}`}>
                     <div>
-                        <div
-                            style={{
-                                backgroundColor: "rgba(255, 255, 255, 0.05)",
-                                border: "1px solid rgba(255, 255, 255, 0.1)",
-                                borderRadius: "16px",
-                                padding: "24px",
-                                marginBottom: "24px",
-                            }}
-                        >
-                            <div
-                                style={{
-                                    position: "relative",
-                                    width: "100%",
-                                    height: "400px",
-                                    borderRadius: "12px",
-                                    overflow: "hidden",
-                                    marginBottom: "24px",
-                                    backgroundColor: "#1a1a1a",
-                                }}
-                            >
+                        <div className="bg-white/5 border border-white/10 rounded-2xl p-6 mb-6">
+                            <div className="relative w-full h-[400px] rounded-xl overflow-hidden mb-6 bg-[#1a1a1a]">
                                 <img
                                     src={image || "/placeholder.svg"}
                                     alt={speciesData.common_name}
-                                    style={{
-                                        width: "100%",
-                                        height: "100%",
-                                        objectFit: "contain",
-                                        display: "block",
-                                    }}
+                                    className="w-full h-full object-contain block"
                                 />
                             </div>
 
-                            <h2
-                                style={{
-                                    fontSize: "28px",
-                                    fontWeight: "bold",
-                                    color: "white",
-                                    marginBottom: "8px",
-                                    lineHeight: "1.3",
-                                }}
-                            >
-                                {speciesData.common_name}
-                            </h2>
+                            <h2 className="text-3xl font-bold text-white mb-2 leading-tight">{speciesData.common_name}</h2>
 
-                            <p
-                                style={{
-                                    fontSize: "18px",
-                                    fontStyle: "italic",
-                                    color: "#a0a0a0",
-                                    marginBottom: "16px",
-                                    lineHeight: "1.5",
-                                }}
-                            >
-                                {speciesData.scientific_name}
-                            </p>
+                            <p className="text-lg italic text-gray-400 mb-4 leading-normal">{speciesData.scientific_name}</p>
 
-                            <div
-                                style={{
-                                    display: "inline-block",
-                                    padding: "8px 16px",
-                                    backgroundColor: "rgba(255, 255, 255, 0.1)",
-                                    border: "1px solid rgba(255, 255, 255, 0.2)",
-                                    borderRadius: "20px",
-                                }}
-                            >
-                                <span style={{ color: "#e0e0e0", fontSize: "14px", fontWeight: "500" }}>Confidence: {confidence}%</span>
+                            <div className="inline-block px-4 py-2 bg-white/10 border border-white/20 rounded-full">
+                                <span className="text-gray-200 text-sm font-medium">Confidence: {confidence}%</span>
                             </div>
                         </div>
                     </div>
 
-                    {/* Right Column: Species Information */}
-                    <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+                    <div className="flex flex-col gap-5">
                         <InfoSection title="About" content={speciesData.about} />
                         <InfoSection title="Habitat" content={speciesData.habitat} />
                         <InfoSection title="Size" content={speciesData.size} />
@@ -144,48 +73,12 @@ export function ResultScreen({ image, speciesData, confidence, onReset }: Result
                         )}
 
                         {speciesData.fun_facts && speciesData.fun_facts.length > 0 && (
-                            <div
-                                style={{
-                                    backgroundColor: "rgba(255, 255, 255, 0.05)",
-                                    border: "1px solid rgba(255, 255, 255, 0.1)",
-                                    borderRadius: "16px",
-                                    padding: "24px",
-                                }}
-                            >
-                                <h3
-                                    style={{
-                                        fontSize: "20px",
-                                        fontWeight: "600",
-                                        color: "white",
-                                        marginBottom: "16px",
-                                        lineHeight: "1.4",
-                                    }}
-                                >
-                                    Fun Facts
-                                </h3>
-                                <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+                            <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
+                                <h3 className="text-xl font-semibold text-white mb-4 leading-snug">Fun Facts</h3>
+                                <ul className="list-none p-0 m-0">
                                     {speciesData.fun_facts.map((fact, index) => (
-                                        <li
-                                            key={index}
-                                            style={{
-                                                color: "#d0d0d0",
-                                                fontSize: "15px",
-                                                lineHeight: "1.7",
-                                                marginBottom: "12px",
-                                                paddingLeft: "20px",
-                                                position: "relative",
-                                            }}
-                                        >
-                      <span
-                          style={{
-                              position: "absolute",
-                              left: 0,
-                              color: "white",
-                              fontWeight: "bold",
-                          }}
-                      >
-                        •
-                      </span>
+                                        <li key={index} className="text-gray-300 text-[15px] leading-relaxed mb-3 pl-5 relative">
+                                            <span className="absolute left-0 text-white font-bold">•</span>
                                             {fact}
                                         </li>
                                     ))}
@@ -196,55 +89,18 @@ export function ResultScreen({ image, speciesData, confidence, onReset }: Result
                         {speciesData.did_you_know && <InfoSection title="Did You Know?" content={speciesData.did_you_know} />}
 
                         {speciesData.is_dangerous && (
-                            <div
-                                style={{
-                                    backgroundColor: "rgba(239, 68, 68, 0.1)",
-                                    border: "2px solid rgba(239, 68, 68, 0.3)",
-                                    borderRadius: "16px",
-                                    padding: "24px",
-                                }}
-                            >
-                                <h3
-                                    style={{
-                                        fontSize: "20px",
-                                        fontWeight: "600",
-                                        color: "#fca5a5",
-                                        marginBottom: "12px",
-                                        lineHeight: "1.4",
-                                    }}
-                                >
-                                    ⚠️ Safety Information
-                                </h3>
-                                <p style={{ color: "#fecaca", lineHeight: "1.7", fontSize: "15px" }}>{speciesData.is_dangerous}</p>
+                            <div className="bg-red-500/10 border-2 border-red-500/30 rounded-2xl p-6">
+                                <h3 className="text-xl font-semibold text-red-300 mb-3 leading-snug">⚠️ Safety Information</h3>
+                                <p className="text-red-200 leading-relaxed text-[15px]">{speciesData.is_dangerous}</p>
                             </div>
                         )}
                     </div>
                 </div>
 
-                <div style={{ display: "flex", justifyContent: "center", marginTop: "48px" }}>
+                <div className="flex justify-center mt-12">
                     <button
                         onClick={onReset}
-                        style={{
-                            backgroundColor: "#ffffff",
-                            color: "#000000",
-                            fontWeight: "600",
-                            fontSize: "18px",
-                            padding: "16px 48px",
-                            borderRadius: "14px",
-                            border: "none",
-                            cursor: "pointer",
-                            boxShadow: "0 4px 12px rgba(255, 255, 255, 0.2)",
-                            transition: "all 0.2s",
-                            lineHeight: "1.5",
-                        }}
-                        onMouseEnter={(e) => {
-                            e.currentTarget.style.backgroundColor = "#f0f0f0"
-                            e.currentTarget.style.transform = "scale(1.05)"
-                        }}
-                        onMouseLeave={(e) => {
-                            e.currentTarget.style.backgroundColor = "#ffffff"
-                            e.currentTarget.style.transform = "scale(1)"
-                        }}
+                        className="bg-white text-black font-semibold text-lg px-12 py-4 rounded-[14px] border-none cursor-pointer shadow-[0_4px_12px_rgba(255,255,255,0.2)] transition-all hover:bg-gray-100 hover:scale-105 leading-normal"
                     >
                         Scan Another Marine Species
                     </button>
@@ -256,26 +112,9 @@ export function ResultScreen({ image, speciesData, confidence, onReset }: Result
 
 function InfoSection({ title, content }: { title: string; content: string }) {
     return (
-        <div
-            style={{
-                backgroundColor: "rgba(255, 255, 255, 0.05)",
-                border: "1px solid rgba(255, 255, 255, 0.1)",
-                borderRadius: "16px",
-                padding: "24px",
-            }}
-        >
-            <h3
-                style={{
-                    fontSize: "20px",
-                    fontWeight: "600",
-                    color: "white",
-                    marginBottom: "12px",
-                    lineHeight: "1.4",
-                }}
-            >
-                {title}
-            </h3>
-            <p style={{ color: "#d0d0d0", lineHeight: "1.7", fontSize: "15px" }}>{content}</p>
+        <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
+            <h3 className="text-xl font-semibold text-white mb-3 leading-snug">{title}</h3>
+            <p className="text-gray-300 leading-relaxed text-[15px]">{content}</p>
         </div>
     )
 }

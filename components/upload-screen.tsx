@@ -93,32 +93,14 @@ export function UploadScreen({
     const canSubmit = uploadMode === "single" ? selectedFile : selectedFiles.length > 0
 
     return (
-        <div
-            style={{
-                minHeight: "100vh",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                padding: "80px 24px",
-            }}
-        >
-            <div style={{ width: "100%", maxWidth: "900px" }}>
-                <div style={{ textAlign: "center", marginBottom: "48px" }}>
-                    <h1
-                        style={{
-                            fontSize: "2.5rem",
-                            fontWeight: "bold",
-                            color: "#ffffff",
-                            marginBottom: "16px",
-                            lineHeight: "1.2",
-                        }}
-                    >
-                        Marine Species Recognition
-                    </h1>
-                    <p style={{ fontSize: "1.125rem", color: "#d1d5db", lineHeight: "1.75" }}>Identify marine life using AI</p>
+        <div className="min-h-screen flex items-center justify-center py-20 px-6">
+            <div className="w-full max-w-[900px]">
+                <div className="text-center mb-12">
+                    <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">Marine Species Recognition</h1>
+                    <p className="text-lg text-gray-300 leading-relaxed">Identify marine life using AI</p>
                 </div>
 
-                <div style={{ display: "flex", justifyContent: "center", marginBottom: "32px", gap: "12px" }}>
+                <div className="flex justify-center mb-8 gap-3">
                     <button
                         onClick={() => {
                             setUploadMode("single")
@@ -128,17 +110,11 @@ export function UploadScreen({
                             setSelectedFile(null)
                             setPreviewUrl("")
                         }}
-                        style={{
-                            padding: "12px 32px",
-                            borderRadius: "12px",
-                            fontSize: "1rem",
-                            fontWeight: "600",
-                            backgroundColor: uploadMode === "single" ? "#ffffff" : "transparent",
-                            color: uploadMode === "single" ? "#000000" : "#ffffff",
-                            border: uploadMode === "single" ? "none" : "2px solid #4b5563",
-                            cursor: "pointer",
-                            transition: "all 0.2s ease",
-                        }}
+                        className={`px-8 py-3 rounded-xl text-base font-semibold transition-all ${
+                            uploadMode === "single"
+                                ? "bg-white text-black"
+                                : "bg-transparent text-white border-2 border-gray-600 hover:border-gray-400"
+                        }`}
                     >
                         Single Photo
                     </button>
@@ -153,20 +129,11 @@ export function UploadScreen({
                             setSelectedFiles([])
                             setBulkPreviewUrls([])
                         }}
-                        style={{
-                            padding: "12px 32px",
-                            borderRadius: "12px",
-                            fontSize: "1rem",
-                            fontWeight: "600",
-                            backgroundColor: uploadMode === "bulk" ? "#ffffff" : "transparent",
-                            color: uploadMode === "bulk" ? "#000000" : "#ffffff",
-                            border: uploadMode === "bulk" ? "none" : "2px solid #4b5563",
-                            cursor: "pointer",
-                            transition: "all 0.2s ease",
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "8px",
-                        }}
+                        className={`px-8 py-3 rounded-xl text-base font-semibold transition-all flex items-center gap-2 ${
+                            uploadMode === "bulk"
+                                ? "bg-white text-black"
+                                : "bg-transparent text-white border-2 border-gray-600 hover:border-gray-400"
+                        }`}
                     >
                         <Images size={20} />
                         Dive Log (Multiple)
@@ -174,15 +141,9 @@ export function UploadScreen({
                 </div>
 
                 <div
-                    style={{
-                        position: "relative",
-                        border: "3px dashed #9ca3af",
-                        borderRadius: "24px",
-                        padding: "80px 40px",
-                        marginBottom: "32px",
-                        backgroundColor: isDragging ? "rgba(255, 255, 255, 0.1)" : "rgba(255, 255, 255, 0.05)",
-                        transition: "all 0.3s ease",
-                    }}
+                    className={`relative border-3 border-dashed rounded-3xl p-20 mb-8 transition-all ${
+                        isDragging ? "border-gray-400 bg-white/10" : "border-gray-400 bg-white/5"
+                    }`}
                     onDrop={handleDrop}
                     onDragOver={handleDragOver}
                     onDragLeave={handleDragLeave}
@@ -192,119 +153,51 @@ export function UploadScreen({
                         accept="image/jpeg,image/png,image/jpg"
                         multiple={uploadMode === "bulk"}
                         onChange={handleFileSelect}
-                        style={{ display: "none" }}
+                        className="hidden"
                         id="file-upload"
                     />
 
-                    <label htmlFor="file-upload" style={{ cursor: "pointer", display: "block" }}>
-                        <div
-                            style={{
-                                display: "flex",
-                                flexDirection: "column",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                gap: "24px",
-                            }}
-                        >
+                    <label htmlFor="file-upload" className="cursor-pointer block">
+                        <div className="flex flex-col items-center justify-center gap-6">
                             {uploadMode === "bulk" && selectedFiles.length > 0 ? (
-                                <div
-                                    style={{
-                                        display: "flex",
-                                        flexDirection: "column",
-                                        alignItems: "center",
-                                        gap: "16px",
-                                        color: "#ffffff",
-                                        width: "100%",
-                                    }}
-                                >
-                                    <Images style={{ height: "40px", width: "40px" }} />
-                                    <span style={{ fontSize: "1.25rem", fontWeight: "500" }}>
+                                <div className="flex flex-col items-center gap-4 text-white w-full">
+                                    <Images className="h-10 w-10" />
+                                    <span className="text-xl font-medium">
                     {selectedFiles.length} image{selectedFiles.length !== 1 ? "s" : ""} selected
                   </span>
 
-                                    <div
-                                        style={{
-                                            display: "grid",
-                                            gridTemplateColumns: "repeat(auto-fill, minmax(100px, 1fr))",
-                                            gap: "12px",
-                                            width: "100%",
-                                            maxWidth: "600px",
-                                            marginTop: "16px",
-                                        }}
-                                    >
+                                    <div className="grid grid-cols-[repeat(auto-fill,minmax(100px,1fr))] gap-3 w-full max-w-[600px] mt-4">
                                         {bulkPreviewUrls.slice(0, 6).map((url, index) => (
                                             <img
                                                 key={index}
                                                 src={url || "/placeholder.svg"}
                                                 alt={`Preview ${index + 1}`}
-                                                style={{
-                                                    width: "100%",
-                                                    height: "100px",
-                                                    objectFit: "cover",
-                                                    borderRadius: "8px",
-                                                    border: "2px solid #4b5563",
-                                                }}
+                                                className="w-full h-[100px] object-cover rounded-lg border-2 border-gray-600"
                                             />
                                         ))}
                                         {selectedFiles.length > 6 && (
-                                            <div
-                                                style={{
-                                                    width: "100%",
-                                                    height: "100px",
-                                                    display: "flex",
-                                                    alignItems: "center",
-                                                    justifyContent: "center",
-                                                    borderRadius: "8px",
-                                                    border: "2px solid #4b5563",
-                                                    backgroundColor: "rgba(255, 255, 255, 0.1)",
-                                                    fontSize: "1.5rem",
-                                                    fontWeight: "600",
-                                                    color: "#ffffff",
-                                                }}
-                                            >
+                                            <div className="w-full h-[100px] flex items-center justify-center rounded-lg border-2 border-gray-600 bg-white/10 text-2xl font-semibold text-white">
                                                 +{selectedFiles.length - 6}
                                             </div>
                                         )}
                                     </div>
                                 </div>
                             ) : uploadMode === "single" && selectedFile && previewUrl ? (
-                                <div
-                                    style={{
-                                        display: "flex",
-                                        flexDirection: "column",
-                                        alignItems: "center",
-                                        gap: "16px",
-                                        color: "#ffffff",
-                                    }}
-                                >
+                                <div className="flex flex-col items-center gap-4 text-white">
                                     <img
                                         src={previewUrl || "/placeholder.svg"}
                                         alt="Preview"
-                                        style={{
-                                            maxWidth: "300px",
-                                            maxHeight: "300px",
-                                            objectFit: "contain",
-                                            borderRadius: "12px",
-                                            border: "3px solid #4b5563",
-                                        }}
+                                        className="max-w-[300px] max-h-[300px] object-contain rounded-xl border-3 border-gray-600"
                                     />
                                 </div>
                             ) : (
                                 <>
-                                    <Upload style={{ height: "64px", width: "64px", color: "#ffffff", opacity: 0.9 }} />
-                                    <div style={{ textAlign: "center" }}>
-                                        <p
-                                            style={{
-                                                fontSize: "1.5rem",
-                                                fontWeight: "500",
-                                                color: "#ffffff",
-                                                marginBottom: "8px",
-                                                lineHeight: "1.6",
-                                            }}
-                                        >
+                                    <Upload className="h-16 w-16 text-white opacity-90" />
+                                    <div className="text-center">
+                                        <p className="text-2xl font-medium text-white mb-2 leading-normal">
                                             Drop {uploadMode === "bulk" ? "images" : "image"} here
                                         </p>
-                                        <p style={{ fontSize: "1rem", color: "#d1d5db", lineHeight: "1.6" }}>or click to browse</p>
+                                        <p className="text-base text-gray-300 leading-normal">or click to browse</p>
                                     </div>
                                 </>
                             )}
@@ -312,144 +205,52 @@ export function UploadScreen({
                     </label>
                 </div>
 
-                <div style={{ display: "flex", justifyContent: "center", marginBottom: "40px" }}>
+                <div className="flex justify-center mb-10">
                     <button
                         onClick={handleScan}
                         disabled={!canSubmit}
-                        style={{
-                            backgroundColor: canSubmit ? "#ffffff" : "rgba(255, 255, 255, 0.3)",
-                            color: "#000000",
-                            borderRadius: "14px",
-                            padding: "16px 48px",
-                            fontSize: "1.125rem",
-                            fontWeight: "700",
-                            border: "1px solid rgba(0, 0, 0, 0.1)",
-                            boxShadow: canSubmit ? "0 10px 25px rgba(255, 255, 255, 0.2)" : "none",
-                            cursor: canSubmit ? "pointer" : "not-allowed",
-                            transition: "all 0.2s ease",
-                            opacity: canSubmit ? 1 : 0.5,
-                        }}
-                        onMouseEnter={(e) => {
-                            if (canSubmit) {
-                                e.currentTarget.style.transform = "scale(1.05)"
-                                e.currentTarget.style.boxShadow = "0 15px 35px rgba(255, 255, 255, 0.3)"
-                            }
-                        }}
-                        onMouseLeave={(e) => {
-                            e.currentTarget.style.transform = "scale(1)"
-                            e.currentTarget.style.boxShadow = canSubmit ? "0 10px 25px rgba(255, 255, 255, 0.2)" : "none"
-                        }}
+                        className={`rounded-[14px] px-12 py-4 text-lg font-bold border border-black/10 transition-all ${
+                            canSubmit
+                                ? "bg-white text-black shadow-[0_10px_25px_rgba(255,255,255,0.2)] hover:scale-105 hover:shadow-[0_15px_35px_rgba(255,255,255,0.3)] cursor-pointer"
+                                : "bg-white/30 text-black cursor-not-allowed opacity-50"
+                        }`}
                     >
                         {uploadMode === "bulk" ? "Analyze Dive Log" : "Scan Species"}
                     </button>
                 </div>
 
-                <div style={{ textAlign: "center", marginBottom: "48px" }}>
-                    <p style={{ fontSize: "1rem", color: "#d1d5db", lineHeight: "1.75", letterSpacing: "0.025em" }}>
+                <div className="text-center mb-12">
+                    <p className="text-base text-gray-300 leading-relaxed tracking-wide">
                         Sharks • Sea turtles • Octopus • Jellyfish • +20 more
                     </p>
                 </div>
 
-                <div style={{ marginTop: "40px", maxWidth: "700px", margin: "0 auto" }}>
+                <div className="mt-10 max-w-[700px] mx-auto">
                     <button
                         onClick={() => setShowTips(!showTips)}
-                        style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "12px",
-                            margin: "0 auto",
-                            color: "#d1d5db",
-                            padding: "12px 24px",
-                            borderRadius: "12px",
-                            backgroundColor: "transparent",
-                            border: "1px solid #4b5563",
-                            cursor: "pointer",
-                            transition: "all 0.2s ease",
-                        }}
-                        onMouseEnter={(e) => {
-                            e.currentTarget.style.backgroundColor = "rgba(255, 255, 255, 0.1)"
-                            e.currentTarget.style.color = "#ffffff"
-                        }}
-                        onMouseLeave={(e) => {
-                            e.currentTarget.style.backgroundColor = "transparent"
-                            e.currentTarget.style.color = "#d1d5db"
-                        }}
+                        className="flex items-center gap-3 mx-auto text-gray-300 px-6 py-3 rounded-xl bg-transparent border border-gray-600 hover:bg-white/10 hover:text-white transition-all cursor-pointer"
                     >
-                        <span style={{ fontSize: "1rem", fontWeight: "600" }}>Tips for best results</span>
-                        <ChevronDown
-                            style={{
-                                height: "20px",
-                                width: "20px",
-                                transform: showTips ? "rotate(180deg)" : "rotate(0deg)",
-                                transition: "transform 0.3s ease",
-                            }}
-                        />
+                        <span className="text-base font-semibold">Tips for best results</span>
+                        <ChevronDown className={`h-5 w-5 transition-transform ${showTips ? "rotate-180" : "rotate-0"}`} />
                     </button>
 
                     {showTips && (
-                        <div
-                            style={{
-                                marginTop: "24px",
-                                padding: "32px",
-                                borderRadius: "16px",
-                                backgroundColor: "rgba(255, 255, 255, 0.05)",
-                                border: "2px solid #6b7280",
-                            }}
-                        >
-                            <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-                                <li
-                                    style={{
-                                        display: "flex",
-                                        alignItems: "flex-start",
-                                        gap: "12px",
-                                        marginBottom: "16px",
-                                        fontSize: "1rem",
-                                        color: "#e5e7eb",
-                                        lineHeight: "1.75",
-                                    }}
-                                >
-                                    <span style={{ color: "#ffffff", marginTop: "2px" }}>•</span>
+                        <div className="mt-6 p-8 rounded-2xl bg-white/5 border-2 border-gray-500">
+                            <ul className="list-none p-0 m-0">
+                                <li className="flex items-start gap-3 mb-4 text-base text-gray-200 leading-relaxed">
+                                    <span className="text-white mt-0.5">•</span>
                                     <span>Use clear, well-lit photos</span>
                                 </li>
-                                <li
-                                    style={{
-                                        display: "flex",
-                                        alignItems: "flex-start",
-                                        gap: "12px",
-                                        marginBottom: "16px",
-                                        fontSize: "1rem",
-                                        color: "#e5e7eb",
-                                        lineHeight: "1.75",
-                                    }}
-                                >
-                                    <span style={{ color: "#ffffff", marginTop: "2px" }}>•</span>
+                                <li className="flex items-start gap-3 mb-4 text-base text-gray-200 leading-relaxed">
+                                    <span className="text-white mt-0.5">•</span>
                                     <span>Ensure the marine species is the main subject</span>
                                 </li>
-                                <li
-                                    style={{
-                                        display: "flex",
-                                        alignItems: "flex-start",
-                                        gap: "12px",
-                                        marginBottom: "16px",
-                                        fontSize: "1rem",
-                                        color: "#e5e7eb",
-                                        lineHeight: "1.75",
-                                    }}
-                                >
-                                    <span style={{ color: "#ffffff", marginTop: "2px" }}>•</span>
+                                <li className="flex items-start gap-3 mb-4 text-base text-gray-200 leading-relaxed">
+                                    <span className="text-white mt-0.5">•</span>
                                     <span>Avoid blurry or distant shots</span>
                                 </li>
-                                <li
-                                    style={{
-                                        display: "flex",
-                                        alignItems: "flex-start",
-                                        gap: "12px",
-                                        fontSize: "1rem",
-                                        color: "#e5e7eb",
-                                        lineHeight: "1.75",
-                                    }}
-                                >
-                                    <span style={{ color: "#ffffff", marginTop: "2px" }}>•</span>
+                                <li className="flex items-start gap-3 text-base text-gray-200 leading-relaxed">
+                                    <span className="text-white mt-0.5">•</span>
                                     <span>JPG and PNG formats work best</span>
                                 </li>
                             </ul>
