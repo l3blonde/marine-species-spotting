@@ -39,7 +39,8 @@ export async function POST(request: NextRequest) {
   "fun_facts": ["fact1", "fact2", "fact3"],
   "did_you_know": "string (interesting trivia)",
   "category": "fish" or "coral" or "crab" or "other",
-  "rarity": "common" or "rare" or "new"
+  "rarity": "common" or "rare" or "new",
+  "confidence": 85
 }`
 
             const result = await model.generateContent([
@@ -58,6 +59,7 @@ export async function POST(request: NextRequest) {
             if (jsonMatch) {
                 const speciesInfo = JSON.parse(jsonMatch[0])
                 speciesInfo.image = base64Image
+                speciesInfo.confidence = speciesInfo.confidence || 85
                 allSpecies.push(speciesInfo)
             }
 
