@@ -1,4 +1,4 @@
-# The Theatrical Performance
+# The Theatrical Performance in Eight Acts
 *A creative explanation of code by Ocean's 4 Team*
 *We wrote this code line by line, we understand every piece,
 and we can explain it like a theatrical performance because
