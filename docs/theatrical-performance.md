@@ -29,18 +29,16 @@ Madame Gemini, the marine biologist on a distant island.
 ---
 
 ## Cast of Characters
-- **Ship React**  — our expedition vessel
-- **Captain Code** (page.tsx) — The ship's commander, directing all voyages
-- **Lord State** (useState) — The royal logbook keeper
-- **Madame Effect** (useEffect) — The maintenance officer and cleanup crew
-- **Courier FexEx** (fetch API) — The courier who carries cargo to distant harbors
-- **Sir Promise** — The sworn contract holder ("I will deliver results later")
-- **Miss FileReader** — The interpreter who translates binary files to base64 text
-- **Madame Gemini** (Gemini AI) — The marine biologist in a distant tower
-- **The Harbour Authority** (API routes) — The customs office and diplomatic repackagers
-- **The Gatekeeper** (lib/api-auth.ts) — Verifies credentials before entry
-
-
+- **Ship React**, our expedition vessel
+- **Captain Code** (page.tsx), the ship's commander, directing all voyages
+- **Lord State** (useState), the royal logbook keeper
+- **Madame Effect** (useEffect), the maintenance officer and cleanup crew
+- **Courier FexEx** (fetch API), the courier who carries cargo to distant harbors
+- **Sir Promise**, the sworn contract holder ("I will deliver results later")
+- **Miss FileReader**, the interpreter who translates binary files to base64 text
+- **Madame Gemini** (Gemini AI), the marine biologist in a distant tower
+- **The Harbour Authority** (API routes), the customs harbour office
+- **The Gatekeeper** (lib/api-auth.ts), verifies credentials before entry
 
 ## PROLOGUE: Where This Story Runs
 app/page.tsx
@@ -53,7 +51,7 @@ Captain Code steps forward and declares:
 ```
 
 **Captain Code:**
-"This entire play is performed **on the ship React itself,
+"This entire play is performed on the ship React itself,
 meaning in the **browser**.
 Not in the harbor office (the server).
 I am the main actor exported to the audience, I'm a *client component*.
@@ -88,7 +86,7 @@ import { useState, useEffect } from "react"
 **Lord State (useState)**
 He is my ship's **Fist Mate and Logbook Keeper**.
 He writes down changing facts so the ship remembers them.
-And I also hire **Madam Effect (useEffect)** 
+And I also hire **Madam Effect (useEffect).** 
 She is my **Boatswain and Maintenance Officer**
 She handles side jobs and cleanup when conditions change."
 
