@@ -6,39 +6,48 @@ we lived through every bug and breakthrough.* 🌊
 
 ---
 
-## The Play: “The Marine Species of the Ocean”
+## The Play: “Captain Code's Adventures: Crossing The Sea”
+
 ## The Stage
-Imagine you're on the marine research ship named **React**,
-sailing the ocean. React is a dependable ship where every rope,
-every beam, every deck follows strict rules of motion.
-When something shifts, the whole ship responds accordingly.
-That’s React: not just the ship, but the laws of the sea itself.
-
-On deck stands our lead actor:
-He is known simply as **Captain Code**, formally Captain Page.tsx,
-his coat flapping in the salt wind, spyglass in hand,
-directing the entire expedition. He is the one who decides.
-
-Below deck, gathered along the railings, are our voyagers,
-our expedition team: **Ms. Safari**, **Mr. Chrome**, and friends,
-keep asking: "Show us the marine creature! Show us now!"
-
-While the Harbor Authority (API routes) negotiates with
-Madame Gemini, the marine biologist on a distant island.
+Imagine you're on the marine research ship named **React**, sailing open water.
+React is a disciplined ship. Every rope, beam and deck obeys strict laws of motion.
+When one thing changes, the entire ship responds.
+React is not merely the vessel. It is the rules of the sea itself.
+On deck stands the lead actor. He is known simply as Captain Code, formally Captain Page.tsx.
+Coat snapping in the salt wind, spyglass in hand, he directs the expedition.
+He listens, he decides, and the ship responds.
+Below deck, pressed along the railings, stand the voyagers.
+Ms Safari, Mr Chrome, and their companions watch closely,
+calling out again and again, “Show us the marine creature. Show us now.”
+While the voyagers wait, the Harbour Authority ashore negotiates with
+Madame Gemini, the marine biologist stationed on a distant island.
 
 ---
 
 ## Cast of Characters
 - **Ship React**, our expedition vessel
 - **Captain Code** (page.tsx), the ship's commander, directing all voyages
-- **Lord State** (useState), the royal logbook keeper
-- **Madame Effect** (useEffect), the maintenance officer and cleanup crew
-- **Courier FexEx** (fetch API), the courier who carries cargo to distant harbors
+- **Lord State** (useState), First Mate, the marine logbook keeper
+- **Madame Effect** (useEffect), Boatswain, the maintenance officer and cleanup crew
+- **Courier FedEx** (fetch()), their fastest courier is called Fetch, it carries cargo to distant harbors
 - **Sir Promise**, the sworn contract holder ("I will deliver results later")
 - **Miss FileReader**, the interpreter who translates binary files to base64 text
-- **Madame Gemini** (Gemini AI), the marine biologist in a distant tower
+- **Madame Gemini** (Gemini AI), the marine biologist in a distant island
 - **The Harbour Authority** (API routes), the customs harbour office
 - **The Gatekeeper** (lib/api-auth.ts), verifies credentials before entry
+
+## ACTS
+PROLOGUE: Where This Story Runs
+Act I: The Ship React Sets Sail (app/page.tsx)
+ACT II: Inside the Harbour Office" (app/api/classify/route.ts)
+ACT III: The Waiting Room (components/analyzing-screen.tsx)
+ACT IV: The Gatekeeper Demands Papers (lib/api-auth.ts)
+ACT V: A Batch of Sea Monsters Arrives (app/api/batch-classify/route.ts)
+ACT VI: The Expedition Grand Reveal (components/result-screen.tsx)
+ACT VII: The Ship's Chronicle (components/dive-log-results.tsx)
+ACT VIII: The Hull and the Rigging (app/layout.tsx & app/globals.css)
+EPILOGUE: The Rules of the World (package.json, tsconfig.json, next.config.ts, postcss.config.mjs)
+FINALE CURTAIN: What Did We Build
 
 ## PROLOGUE: Where This Story Runs
 app/page.tsx
@@ -51,12 +60,11 @@ Captain Code steps forward and declares:
 ```
 
 **Captain Code:**
-"This entire play is performed on the ship React itself,
-meaning in the **browser**.
-Not in the harbor office (the server).
-I am the main actor exported to the audience, I'm a *client component*.
-My voice is heard in Chrome and Safari, right here on deck.
-When the page loads, I walk on stage."
+"This story happens here. On the ship called React.
+Not in the harbour. Not on the server.
+I speak from the deck. I am a client component.
+You hear me in Chrome. You hear me in Safari.
+When the page loads, I step on stage."
 
 ### 📖 Code Translation:
 The `"use client"` directive tells Next.js that this is
@@ -70,7 +78,7 @@ Next.js would try to render this component on the server,
 which would fail.
 
 ---
-## ACT 1: The Ship React Sets Sail
+## ACT I: The Ship React Sets Sail
 ### File: `app/page.tsx`
 
 ## SCENE 1 Assembling The Crew (Imports)
@@ -83,12 +91,12 @@ import { useState, useEffect } from "react"
 
 **Captain Code:**
 "I'm hiring two essential crew members from React.
-**Lord State (useState)**
-He is my ship's **Fist Mate and Logbook Keeper**.
-He writes down changing facts so the ship remembers them.
-And I also hire **Madam Effect (useEffect).** 
-She is my **Boatswain and Maintenance Officer**
-She handles side jobs and cleanup when conditions change."
+**Lord State (useState), my First Mate**
+He keeps the logbook. He remembers what changes.
+He tells the ship where it stands.
+And I also hire Madam Effect, my Boatswain.
+She comes after events. She handles side work.
+She cleans up what is no longer needed.
 
 ```typescript
 import { UploadScreen } from "@/components/upload-screen"
@@ -98,11 +106,11 @@ import { DiveLogResults } from "@/components/dive-log-results"
 ```
 
 **Captain Code:**
-"I hire my ship designers:
-one builds the photo upload stage,
-one creates the 'please wait' cabin,
-one prepares the grand reveal,
-and one handles bulk expedition results."
+"I hire my ship builders:
+One builds the place where photos arrive (upload screen deck).
+One prepares the waiting room (analyzing deck).
+One sets the stage for the reveal (result deck).
+And one records the results of large expeditions (dive log results)"
 
 ### 📖 Code Translation:
 **Imports are dependencies**
@@ -137,16 +145,19 @@ interface SpeciesInfo {
 }
 ```
 
-**Captain Code opens a binder:**
+**Captain Code opens a leather-bound binder and addresses the deck:**
 "This is the structure of the marine biologist's report.
-Every report must have these exact labels."
-- `common_name`: "The everyday name. 'Clownfish.'"
-- `scientific_name`: "The formal Latin label. Scientists love paperwork."
-- `about`: "A paragraph explaining the creature."
-- `conservation_status?`: "Optional.
-? The question mark means optional,
-so 'if the biologist knows it, we write it.
-- If not, we don't panic.'"
+This is the language of the biologist. This is how knowledge must arrive.
+Every report follows this form. No guessing. No improvisation.
+- `common_name`: First, the common name. The name people use. ‘Clownfish.’ Something you can say aloud.
+- `scientific_name`: Then the scientific name. The formal one. The Latin. Order matters to science.
+- `about`: Then the explanation. What the creature is. What it does. Why it matters.
+- `habitat: string`: We note where it lives.
+- `size: string`:  How large it grows.
+- `behavior: string`: How it behaves.
+- `conservation_status?`: Sometimes there is more. A conservation status.
+And sometimes there is silence. A question unanswered.? The question mark means optional,
+So 'if the biologist knows it, we write it. If not, we don't panic.'"
 
 ### 📖 Code Translation:
 
@@ -164,7 +175,7 @@ if we try to access a property that doesn't exist.
 
 ---
 
-## SCENE 3 The Filing Cabinet (Categorized Structure)
+## SCENE 3 The Filing Cabinet of Categorized Species
 
 ### 🎭 Theatrical Version:
 
@@ -183,9 +194,14 @@ interface CategorizedSpecies {
 ```
 
 **Captain Code:**
-"For bulk photos analysis, I need categories.
-A whole filing cabinet with drawers for new species,
-rare ones, dangerous ones, and then common species sorted by type."
+"One marine creature is simple, but many creature require order.
+So, for larger expeditions, for bulk photos analysis,
+I prepare the filing cabinet with categorized marine species.
+Not one shelf, but many. There is a drawer for what is new.
+A drawer for what is rare. A drawer for what is dangerous.
+And for what is common, we sort with care.
+Fish in one place. Corals in another.
+Crabs set aside. Everything else where it belongs."
 
 ### 📖 Code Translation:
 
@@ -208,8 +224,10 @@ export default function MarineSpeciesRecognition() {
 ```
 
 **Captain Code bows:**
-"I am the main actor exported to the audience.
-When the page loads, *I walk on stage*."
+"I am the one this page sends forward. I am the voice React vessel calls upon.
+Our voyage mission is Marine Species Recognition. We are here to spot marine life.
+When the route is reached, I step in.
+The lights come up. The journey begins."
 
 ### 📖 Code Translation:
 - `export default` makes this the main component exported from this file
@@ -229,17 +247,27 @@ const [uploadMode, setUploadMode] = useState<"single" | "bulk">("single")
 ```
 
 **Lord State bows:**  
-"I am the logbook keeper. When you write in my pages,
-the entire ship scene re-renders."
+"I am the logbook keeper. I keep the ship's log.
+I am the memory of this ship. I remember what mode we are in.
+This deck is called uploadMode.
+It tells us how we sail. One photo, or many.
+And this command, setUploadMode,
+When our Captain code writes a new line,
+I remember. I log it down.
+And the ship changes around us.
+For now, the log reads: single voyage."
 
 ```typescript
 const [currentScreen, setCurrentScreen] = useState<"upload" | "analyzing" | "result">("upload")
 ```
 
-**Lors State asks:**
-"Which room are we standing in right now?
-Upload room, analyzing room, or result room?
-We begin at **upload**."
+**Lord State shows the entry:**
+"I remember where we stand. This entry is called currentScreen.
+It tells us which deck is open.
+Are we receiving in cargo? Waiting for the answer or sharing what we found?
+When the Captain Code writes with setCurrentScreen,
+our React ship moves to that deck.
+For now, the log is clear. We begin in the upload deck."
 
 ```typescript
 const [selectedImage, setSelectedImage] = useState<string | null>(null)
@@ -248,13 +276,15 @@ const [speciesData, setSpeciesData] = useState<SpeciesInfo | null>(null)
 const [confidence, setConfidence] = useState<number>(0)
 ```
 
-**Lord State:**
-"Do we have an image? Not yet—null.
-The logbook records: the selected image data,
-a preview URL, the biologist's report, and confidence level.
-Do we have the marine biologist’s report yet? Not yet.
-How confident are we? Starts at zero.
-All start empty or zero-null."
+**Lord State opens logbook and speaks calmly:**
+"I keep the ship’s memory.
+Do we have an image? Not yet. The page is blank.
+Here I will record four things:
+The chosen image. A preview the crew can see.
+The biologist’s report. And how certain that report is.
+At the moment, there is nothing to note.
+No image. No findings. No confidence.
+The log begins empty. That is how every voyage starts"
 
 ### 📖 Code Translation:
 **useState** creates state variables in React:
@@ -288,13 +318,16 @@ useEffect(() => {
 }, [previewUrl])
 ```
 
-**Madame Effect (useEffect) salutes:**
-""Maintenance officer reporting!
-When the preview URL changes,
-I check if cleanup is needed.
-The `return` function is my cleanup crew—it runs
-before the next effect or when the component unmounts.
-I revoke Blob URLs to prevent memory leaks"
+**Madame Effect (useEffect), the Boatswain
+(maintenance officer of the ship, the Second Mate) steps forward and salutes:**
+"Maintenance officer reporting!
+I arrive after changes.
+When a preview link is replaced, I check what must be cleared.
+This return here is my cleanup order.
+I carry it out before the next change, or when this scene ends.
+If a temporary link was created, I take it down.
+No loose ropes. No memory leaks.
+The ship stays clean."
 
 ### 📖 Code Translation:
 
@@ -334,9 +367,11 @@ const handleImageUpload = async (file: File) => {
 ```
 
 **Captain Code:**
-"When a voyager hands me a photo file,
-I begin an **async** mission, meaning
-I'll do some waiting without freezing the ship."
+"When a voyager hands me a photo,
+I begin an async mission.
+That means I wait when I must, but the ship keeps moving.
+No blocking. No freezing. No stalling.
+The voyage continues while the work is done."
 
 ```typescript
 const imageDataUrl = await new Promise<string>((resolve) => {
@@ -350,11 +385,15 @@ const imageDataUrl = await new Promise<string>((resolve) => {
 ```
 
 **Captain Code:**
-"I hire **Miss FileReader**, our interpreter.
-It translates a raw photo file into base64 text.
-I wrap this in a **Promise**, a sealed contract that
-says 'I will deliver the result later.'
-When the reader finishes, it fulfills the promise."
+"Unfortunately, this photo arrives in a language we cannot speak.
+So now, I hire Miss FileReader, our interpreter.
+She will read the raw image and turn it into base64 text,
+the language that our marine biologist Miss Gemini understands.
+While she works, I seal the task inside a Promise.
+Promise is our written contract. It says,
+‘The answer is not ready yet, but it will arrive.’
+When the reading is done, the contract is fulfilled,
+and the result is delivered to our marine biologist."
 
 ```typescript
 setSelectedImage(imageDataUrl)
@@ -362,8 +401,8 @@ setCurrentScreen("analyzing")
 ```
 
 **Captain Code:**
-"Record the image in the logbook and
-move everyone to the analyzing room!"
+"Log the image. Make it part of the ship’s memory.
+Then let's clear the deck. We move everybody to the analysing deck!"
 
 ```typescript
 const formData = new FormData()
@@ -371,8 +410,13 @@ formData.append("image", file)
 ```
 
 **Captain Code:**
-"I wrap the file into **FormData**
-like a waterproof cargo crate for shipping files."
+"This image cannot travel loose.
+I seal it inside FormData.
+A waterproof shipping box.
+I append it inside and give it a clear label. ‘Image.’
+Now it is ready for the courier.
+This is the file the harbour authorities will open.
+Now it can face the sea!"
 
 ```typescript
 const response = await fetch("/api/classify", {
@@ -381,10 +425,15 @@ const response = await fetch("/api/classify", {
 })
 ```
 
-**Captain Code:**
-"I hire **Fetch**, our courier,
-to run from the ship to the harbor gate `/api/classify`.
-He's not just asking (GET), he's **posting cargo**—sending data."
+**Captain Code turns and calls out across the deck:**
+"Now, I hire the services of FedEx.
+Their fastest courier is called Fetch.
+Fetch will carry this package from our ship
+to the harbour gate at /api/classify.
+This is not a question. We are not knocking.
+The method is POST. We are sending cargo.
+The body is FormData. The box is sealed.
+I will await Fetch’s return. The ship keeps moving."
 
 ```typescript
 const data = await response.json()
@@ -396,9 +445,15 @@ if (data.success) {
 }
 ```
 
-**Captain Code:**
-"I open the response envelope and read the JSON.
-If successful, I record the report and move to the result room!"
+**Captain Code breaks the seal and reads aloud:**
+"Ok, the courier has returned.
+I open the envelope and read the JSON inside.
+If the answer is good,
+I write the biologist’s report into the log.
+I note how confident she is.
+Then I give the order.
+Clear the deck. Show the results"
+
 
 ### 📖 Code Translation:
 
