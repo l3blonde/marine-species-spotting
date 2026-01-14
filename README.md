@@ -1,6 +1,7 @@
 # Marine Species Recognition POC
 Built by Ocean's 4 Team, Thomas More, Digital Product Architecture
 for testing AI powered marine species identification.
+Live Demo: https://marine-species-spotting.vercel.app/
 
 ## What We Did
 We built a proof of concept app to test if we could use Google's Gemini AI
